@@ -1,0 +1,7 @@
+-----------------------------------------------------------------
+SCENE MANAGEMENT - UnityEngine.SceneManagement
+----------------------------------------------
+SceneManager.LoadScene(sceneName);
+-> To get the active sceneName (useful when restart)
+   - SceneManager.GetActiveScene().name
+   - SceneManager.LoadScene(SceneManager.GetActiveScene().name);

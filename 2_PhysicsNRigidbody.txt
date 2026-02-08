@@ -1,0 +1,66 @@
+PHYSICS AND RIGID BODY
+---------------------------
+
+DIRECTION: Vector3 direction = ending position - starting position
+Random.Value; returns a random float value between 0 and 1
+
+FORCE
+-----
+RigidBodyObj.AddForce(direction * force, ForceMode.forceMode);
+-> playerRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse)
+
+
+| ForceMode        | Instant?  | Ignores Mass? | Common Use             |
+-------------------------------------------------------------------------
+| `Force`          | ❌ No     | ❌ No        | Smooth movement        |
+| `Acceleration`   | ❌ No     | ✅ Yes       | Uniform acceleration   |
+| `Impulse`        | ✅ Yes    | ❌ No        | Explosions, hits       |
+| `VelocityChange` | ✅ Yes    | ✅ Yes       | Arcade-style knockback | ...table taken from chatgpt...
+
+
+ROTATIONAL FORCE / TORQUE
+-------------------------
+RigidBodyObj.AddTorque(x, y, z, ForceMode.forceMode);
+-> playerRB.AddForce(5, 5, 5, ForceMode.Impulse)
+where the 5s or x, y and z are the torque applied to x, y, and z axis
+
+Linear and Angular Velocity
+---------------------------
+-> playerRb.linearVelocity = Vector3.zero; 
+-> playerRb.angularVelocity = Vector3.zero; //no velocity
+
+
+ACCESSING MAGNITUDE & DIRECTION - .magnitude & .normalized
+-----------------------------------------------------------
+Vector3 lookDirection = (player.transform.position - transform.position).normalized; //only gives the direction
+
+Vector3 lookDirection = (player.transform.position - transform.position).magnitude; //only gives the magnitude
+
+
+DEFINING VECTORS IN 3D SPACE
+----------------------------
+Vector3.forward - getting direction of gameObject
+otherGameObj.transform.forward - same as Vector3.forward but diff gameObj attached to the script
+
+APPL: To get the pt of obj2 10 units away from an obj1 to the direction where obj1 is looking :-
+obj2Pos = obj1.transform.position + obj1.transform.forward * 10f;
+
+--------------------------------------------------------------------------------------------------------------------
+
+DAMPING TIMING
+--------------
+| Damping value | Time to halve velocity (approx.) |
+| ------------- | -------------------------------- |
+| **0.1**       | ~6.9 seconds                     |
+  0.2			3.47 s
+| **0.3**       | ~2.3 seconds                     |
+| **0.5**       | ~1.4 seconds                     |
+| **1.0**       | ~0.7 seconds                     |
+| **2.0**       | ~0.35 seconds                    |
+| **5.0**       | ~0.14 seconds                    | ...table take from chatgpt...
+
+
+CONSTRAINTS
+-----------
+Rb.constraints = RigidbodyConstraints.FreezeAll;
+Rb.constraints = RigidbodyConstraints.None;   

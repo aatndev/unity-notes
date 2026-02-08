@@ -1,0 +1,36 @@
+DOT PRODUCT AND APPLICATOIN
+---------------------------
+Vector3.Dot(a, b) means
+a.x * b.x + a.y * b.y + a.z * b.z
+
+
+COMPARISON REAL LIFE APPL:-
+
+Vector3 toTarget = realPath.transform.position - plane.transform.position;
+
+if (Vector3.Dot(plane.transform.forward, toTarget) < 0)
+{
+    // The realPath is behind the plane (plane has passed it)
+}
+else
+{
+    // The realPath is in front of the plane
+}
+
+EXPL:
+
+- Vector3 toTarget = realPath.transform.position - plane.transform.position;
+> has plane------>realPath [distance and direction]
+
+-Vector3.Dot(plane.transform.forward, toTarget)
+plane.transform.forward > has plane's forward direction
+
+Therefore if,
+> Vector3.Dot(plane.transform.forward, toTarget) > 0 
+Then: both are facing same direction - meaning realPath is in front of plane
+
+> Vector3.Dot(plane.transform.forward, toTarget) == 0
+Then: both are at the same place because vectors are perpendicular
+
+> Vector3.Dot(plane.transform.forward, toTarget) < 0
+Then: realPath is behind the plane because realPath's direction is towards the plane and toTargets direction is towards the realPath

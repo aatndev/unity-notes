@@ -1,0 +1,8 @@
+TMP Scale changing fix 
+----------------------
+1. select your Canvas in the Hierarchy.
+2. in Canvas Scaler component:
+	3. set UI Scale Mode → Scale With Screen Size
+	4. set Reference Resolution → current res (1920 x 1080)
+	5. set Screen Match Mode → Match Width Or Height
+	6. the Match slider (0 = width-based, 1 = height-based, 0.5 = balanced) - so set balanced

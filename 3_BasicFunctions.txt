@@ -1,0 +1,34 @@
+BASIC FUNCTIONS()
+-----------------
+void Awake() - when the object wake up - before start()
+Void Start() - at the start of the game
+
+void FixedUpdate() - before Update() - for physics and movements	
+Void Update() - every one frame per sec
+Void LateUpdate() - once per frame after Update() is called
+
+private void OTriggerEnter(Collider other) - isTrigger ON : only detection, no physical collision
+
+private void OnCollisionEnter(Collision collision) 
+
+private void OnMouseDown()
+
+
+IENUMERATOR / TIMER
+-------------------
+fn calling - StartCouroutine(fnName());
+fn declaration -
+IEnumerator fnName()
+{
+	fn stuffs:
+	1. yield return new WaitForSeconds(n); - waits for n seconds 
+}
+
+To exit application
+-------------------
+Application.Quit();
+
+OTHER INFOS
+-----------
+Random.Range does not include the maximum value for integers, but does include the maximum value for floats.
+

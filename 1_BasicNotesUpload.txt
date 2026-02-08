@@ -1,0 +1,66 @@
+transform.Translate(Vector3.left * speed * Time.deltaTime);
+
+Destroy(gameObject);
+
+Instantiate()
+Instantiate(obstacle, pos, rot);
+Instantiate(obstacle, pos, rot, parentGameObj.transform);
+
+InvokeRepeating("FnName", startDelay, repeatDelay);
+
+Physics.gravity *= 1; // mofification of entire gravity of the game
+
+gameObject.CompareTag("TagName");
+
+Random.Range(5, 15);
+
+.name - to find the name of something in strings
+Eg: gameObject.name
+
+gameObject.SetActive(true/false);
+
+Array - class datatype[] var; //class: private/public
+List - class List<datatype> var;
+----------------------------------------------------------------------------------------------------
+
+GET COMPONENT
+-----------------------------------------
+ComponentNm var = GetComponent<CompName>();
+ComponentNm CompVar = var.compNm; // to get component of an obj
+
+TO FIND OBJS BY TYPE
+-----------------------
+var = FindAnyObjectByType<script>(FindObjectsSortMode.mode).Length()
+
+TO GET AND ACCESS CHILD COMPONENT
+--------------------------------------
+// Transform
+Transform childTransform = transform.GetChild(0);
+Transform lastChildTransform = transform.GetChild(transform.childCount - 1);
+
+// GameObject
+GameObject childObject = transform.GetChild(0).gameObject;
+----------------------------------------------------------------------------------------------------
+
+[SerializeField]: makes private variable access in inspector
+
+static: makes the variable global-like; they belong to the class not the obj
+const: constant var that you cant change or update later
+readonly: only changeable while declaration or using constructer
+
+| Keyword    | Changeable?             | When assigned?             | Needs compile-time value? | Static? |
+| ---------- | ----------------------- | -------------------------- | ------------------------- | ------- |
+| `static`   | YES                     | anytime                    | no                        | yes     |
+| `const`    | NO                      | only at declaration        | yes                       | yes     |
+| `readonly` | NO (after construction) | declaration or constructor | no                        | no      | 
+
+-------------
+SUBSTRING
+anyTextorString.Substring(4, 3); - 4th indexed letter of anyTextorString to 3 letter. if Magazine - accessed letters are: zin
+
+----------------------------------------------------------------------------------------------------
+
+AI's you can use to learn and create: UnityMuse, ChatGPT, Gemini, Claude, Lovable and many more
+
+----------------------------------------------------------------------------------------------------
+

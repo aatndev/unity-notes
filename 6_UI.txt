@@ -1,0 +1,166 @@
+UI
+--
+
+TEXT
+----
+public TextMeshProUGUI var;
+var.text = <text>
+
+SUBSTRING
+---------
+textVar.text.Substring(startIndex); 
+//will only take chars from startIndex to end
+
+textVar.text.Substring(firstIndex, howManyLettersMore);
+//will only take char from first index to last index text
+
+BUTTON
+------
+Component: Button
+button.onClick.AddListener(fn);
+
+void fn()
+{	
+... what happens when clicked that button ...
+}
+
+LOADING SCENE:
+SceneManager.LoadScene(SceneNm); - delete current scene and add another scene
+SceneManager.LoadScene("Game", LoadSceneMode.Additive); - adds another scene
+
+TO RESTART THE ACTIVE SCENE:
+SceneManager.GetActiveScene().name
+
+TOGLLE
+------
+toogleVar.onValueChanged.AddListener(fn);
+void fn(bool isOn)
+{
+    if (isOn)
+    {
+        Debug.Log("Checkbox is checked ✅");
+    }
+    else
+    {
+        Debug.Log("Checkbox is unchecked ❌");
+    }
+}
+
+OR
+bool boolVar = toggleVar.isOn; //bool var is true when toggleVar isOn is checked
+
+SCROLLING
+---------
+IN INSPECTOR:
+Vertical Size Layout - shifts when new elemnts or items are added
+Content size filter - parent objects size inceases when new things are added to it
+
+SETTINGS
+--------
+Skybox/background material:
+RenderSettings.skybox = newSkybox;
+
+Resolution:
+Syntax: Screen.SetResolution(width, height, bool fullScreen);
+Screen.SetResolution(width, height, false);
+
+To exit application:
+Application.Quit();
+
+
+
+RECT TRANSFORM
+--------------
+RectTransform rect = var.rectTransform; //another method of getting component
+
+TO ACCESS POSITIONG - WE USE:
+ rect.anchoredPosition = new Vector3(...)
+
+TO ACCESS ANCHOR AND CHANGE EM - WE USE:
+rect.anchorMin = (0, 1)
+rect.anchorMax = (0, 1) //where rect is the rect transform component
+
+Position        | anchorMin     | anchorMax     | Notes
+----------------+---------------+---------------+-----------------------------
+Top-Left        | (0, 1)        | (0, 1)        | Offset downward (Y negative)
+Top-Middle      | (0.5, 1)      | (0.5, 1)      | X centered, offset downward
+Top-Right       | (1, 1)        | (1, 1)        | Offset left (X negative)
+
+Middle-Left     | (0, 0.5)      | (0, 0.5)      | Offset up/down via Y
+Middle-Center   | (0.5, 0.5)    | (0.5, 0.5)    | Center of screen
+Middle-Right    | (1, 0.5)      | (1, 0.5)      | Offset left via X
+
+Bottom-Left     | (0, 0)        | (0, 0)        | Offset upward (Y positive)
+Bottom-Middle   | (0.5, 0)      | (0.5, 0)      | X centered, offset upward
+Bottom-Right    | (1, 0)        | (1, 0)        | Offset left/up via X/Y
+
+		 (l/r, t/d)       (l/r , t/d)
+... table taken from chatgpt ...
+
+rect.anchoredPosition = new Vector2(203, -183); - position - x and y on that anchor
+
+float var = rectVar.rect.width; - gets rect width
+
+---------------------------------------------------------------------------------------------
+NOT IN COURSE
+---------------------------------------------------------------------------------------------
+CLICK N DRAG STUFFS:
+-> EventSystem.current.currentSelectedGameobject - the UI Gameobject when it gets clicked. 
+-> CLICK N DRAG IN CANVAS
+-------------------------
+OTHER PARENT CLASSES THAT CAN BE USED FOR CLICK N DRAG FEATURE:
+IBeginDragHandler            fn: OnBeginDrag()
+IDragHandler                 fn: OnDrag()
+IEndDragHandler              fn: OnEndDrag
+
+PointerEventData eventData:
+eventData.position       : Current mouse / touch position (screen space)
+eventData.delta          : Movement since last frame
+eventData.pressPosition  : Where the drag started
+eventData.pointerId      : Mouse or finger ID
+eventData.button         : Left / Right / Middle mouse button
+eventData.dragging       : Is dragging happening?
+
+
+public class Drag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+{
+    public RectTransform limitCircle; // The circle UI you want to stay inside
+    private RectTransform spoonRect;
+
+    void Start()
+    {
+        spoonRect = GetComponent<RectTransform>();
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        // Optional: play sound or animation
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        // Move spoon to mouse
+        spoonRect.position = eventData.position;
+
+        // Clamp spoon inside the circle
+        KeepInsideCircle();
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        // Optional
+    }
+
+    void KeepInsideCircle()
+    {
+        Vector2 center = limitCircle.position;
+        float radius = limitCircle.rect.width * 0.5f;
+
+        Vector2 direction = spoonRect.position - center;
+
+        if (direction.magnitude > radius)
+        {
+            spoonRect.position = center + direction.normalized * radius;
+        }
+    }
+}

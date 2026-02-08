@@ -1,0 +1,9 @@
+Vector2.ClampMagnitude(vector, radius) - if vector.magnitude<=radius - returns same and if not, shortens it to the radius
+
+MATHF CLAMP
+-----------
+->Mathf.Clamp syntax
+Mathf.Clamp(value, min, max);
+where, 
+If value < min → returns min
+If value > max → returns max

@@ -1,0 +1,9 @@
+List - class List<datatype> listVar;
+
+listVar.Add(addVar); //adds at the end
+listVar.Insert(index, addVar); //adds at that index
+
+listVar.Remove(delVar); // remove the item with name and auto shift
+listVar.RemoveAt(index); //removes the item with index and auto shift
+
+listVarA.AddRange(listVarB); // to add everything in one list to another

@@ -1,0 +1,13 @@
+Time scale = 1 : normal speed
+Time scale = 0.5 : half speed
+
+https://www.youtube.com/watch?v=0VGosgaoTsw - brackeys tutorial
+
+Time.timeScale
+Time.fixedDeltaTime
+Time.unscaledDeltaTime
+
+Time.deltaTime
+
+Time.timeScale += (1/ slowDownLength) * Time.unscaledDeltaTime;
+Time.timeScale = Mathf.Clamp(Time.timeScale, 0, 1);

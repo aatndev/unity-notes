@@ -1,0 +1,14 @@
+0. Game Type - 1D or 2D or 3D 
+1. Basic Notes / Startup
+1_1. List
+2. Physics and Rigidbody
+3. Functions
+4. Animations and Sound Effects
+5. TMP wrt Resolution
+6. UI
+7. SceneManagement
+8. TimeScale (from brackeys)
+9. Vector3 Dot Product
+10. Conversion
+11. Mathf Notes
+12. Colors and Environment

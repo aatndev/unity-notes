@@ -1,0 +1,55 @@
+ANIMATIONS
+----------
+Animator animVar; - assign/getComp
+ParticleSystem particleVar; - assign/getComp
+
+animVar.SetTrigger("name");
+animVar.SetBool("name");
+
+animVar.Play()
+animVar.Stop()
+
+
+SOUNDS
+------
+AudioClip audioClipVar; - assign (rec) /getcomp
+
+AudioSource audioSrcVar; //getcomp (rec) / assign
+
+AudioSrcVar.playOneShot(audioClipVar); - to play at the start and never plays again
+AudioSrcVar.Play(audioClipVar) - play forever
+AudioSrcVar.loop = true- loops, Boolean
+
+-> To attach audio clip to audio source
+audioSourceVar.clip = audioClipVar
+
+-----------------------------------------------------------------------
+note: timescale is independent to audio - make sure its not in update
+-----------------------------------------------------------------------
+
+->To change speed of audio source or audio clip by changing the pitch
+//only if you want to lower the audio while lowering the timescale
+    void DoSloMo()
+    {
+        Time.timeScale = sloMoSpeed;
+        Time.fixedDeltaTime = Time.timeScale * 0.02f;
+
+        planeAudioSource.Stop(); //stop current audio source
+        planeAudioSource.clip = slowmoAudio; //store clip
+        planeAudioSource.pitch = Mathf.Clamp(Time.timeScale, 0.1f, 2f);
+        planeAudioSource.Play();
+    }
+    
+    void StopSloMo()
+    {
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f;
+        
+        planeAudioSource.Stop();
+        planeAudioSource.clip = null;
+        planeAudioSource.pitch = 1f;
+    }
+
+
+
+

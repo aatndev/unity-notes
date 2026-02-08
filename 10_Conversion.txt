@@ -1,0 +1,44 @@
+
+To convert anything to string
+
+anyVar.ToString();
+floatVar.ToString("F2"); //if float and only want 2 numbers after decimal
+
+
+To convert string to integer
+
+int.Parse(string)
+int.TryParse(string, out int result)   // safe
+Convert.ToInt32(string)               // handles null
+
+
+To convert string to float
+
+float.Parse(string)
+float.TryParse(string, out float result)   // safe
+Convert.ToSingle(string)
+
+
+To convert string to double
+
+double.Parse(string)
+double.TryParse(string, out double result) // safe
+Convert.ToDouble(string)
+
+
+To convert int to float/double
+
+float f = (float)intValue
+double d = (double)intValue
+
+
+To convert float/double to int
+
+int i = (int)floatValue           // truncates
+int i2 = Convert.ToInt32(floatValue) // rounds
+
+
+To convert string to bool
+
+bool.Parse(string)
+bool.TryParse(string, out bool result)  // safe

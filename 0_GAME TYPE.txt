@@ -1,0 +1,18 @@
+GAME TYPE
+---------
+For a top-down / 1D game, 
+-> Camera position (0, y, 0) directly over the player
+y = 10 is the best spot 
+-> Rotate the camera x position 90 degrees 
+
+For a side-view / 2D game, 
+-> Rotate the Plane x position -90 degrees 
+
+
+CAMERA ASSIGNING for 3d fps or third - person view game mode
+------------------------------------------------------------
+transform.position = player.transform.TransformPoint(offset);
+-> Takes player's position away from offset position
+
+transform.rotation = player.transform.rotation * quaternion.Euler(rotationOffset);
+-> Takes player's rotation and rotate it to the rotation you want

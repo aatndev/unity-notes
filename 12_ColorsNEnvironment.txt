@@ -1,0 +1,22 @@
+COLORS
+------
+material.SetColor("_BaseColor", new color); //to change color of any material
+
+ENVIRONMENT
+-----------
+-> To make your game environment full white
+RenderSettings.skybox = null;
+Camera.main.clearFlags = CameraClearFlags.SolidColor;
+Camera.main.backgroundColor = Color.white;
+
+-> To make your game environment full white
+RenderSettings.skybox = null;
+Camera.main.clearFlags = CameraClearFlags.SolidColor;
+Camera.main.backgroundColor = Color.black;
+
+-> To make your game environment a particular material
+RenderSettings.skybox = materialVariable;
+Camera.main.clearFlags = CameraClearFlags.Skybox;
+
+DynamicGI.UpdateEnvironment(); //unity may takes time to update its environment. this function will make it quicker ... make sure to put it in after you make any changes to your game environment
+
