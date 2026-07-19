@@ -1,0 +1,970 @@
+GAME TYPE
+---------
+---------
+For a top-down / 1D game, 
+-> Camera position (0, y, 0) directly over the player
+y = 10 is the best spot 
+-> Rotate the camera x position 90 degrees 
+
+For a side-view / 2D game, 
+-> Rotate the Plane x position -90 degrees 
+
+
+CAMERA ASSIGNING for 3d fps or third - person view game mode
+------------------------------------------------------------
+transform.position = player.transform.TransformPoint(offset);
+-> Takes player's position away from offset position
+
+transform.rotation = player.transform.rotation * quaternion.Euler(rotationOffset);
+-> Takes player's rotation and rotate it to the rotation you want
+
+
+SCREEN ORIENTATION
+------------------
+At Start:
+Screen.orientation = ScreenOrientation.LandscapeLeft;
+Screen.orientation = ScreenOrientation.Portrait;
+
+
+NOTES
+------
+------
+transform.Translate(Vector3.left * speed * Time.deltaTime);
+
+Destroy(gameObject);
+Destroy(gameObject, 2f); //destroy with delay of 2 seconds
+
+Instantiate()
+Instantiate(obstacle, pos, rot);
+Instantiate(obstacle, pos, rot, parentGameObj.transform);
+
+InvokeRepeating("FnName", startDelay, repeatDelay);
+
+Physics.gravity *= 1; // mofification of entire gravity of the game
+
+gameObject.CompareTag("TagName");
+
+Random.Range(5, 15);
+
+.name - to find the name of something in strings
+Eg: gameObject.name
+
+gameObject.SetActive(true/false);
+
+Array - class datatype[] var; //class: private/public
+List - class List<datatype> var;
+
+----------------------------------------------------------------------------------------------------
+
+ROTATION NOTES
+---------------
+1. Standard Rotation and Vector3: [rotate from where the object is rn]
+
+transform.Rotate(xAxis, yAxis, zAxis); //turn from where it is
+eg: transform.Rotate(0, 10, 0); // turn the object 10 degree on y axis
+//this is similar to Space.Self - by default its Space.Self
+
+transform.Rotate(Vector3.up * 10, Space.World); //Turn 10° around the world's up direction.
+-- Vector3.up : (0, 1, 0) times 10 is: (0, 10, 0) - rotates in world direction
+
+the above command does same thing that below command do:
+playerBodyPart.transform.Rotate(new Vector3(0, 10, 0), Space.World);
+
+2. Euler Angles: Rotation using Degrees .. [be in that position. or rotate to that angle]
+transform.eulerAngles = new Vector3(30,90,0); -- this is not rotate that much. this is rotate to that angle
+
+3. Quaternion
+''transform.rotation = Quaternion.Euler(30,90,0);'' does same thing that ''transform.eulerAngles = new Vector3(30,90,0);'' do
+
+''Quaternion.identity is (0, 0, 0, 1)'':
+x, y, z = 0, and w = 1.. w is cos (angle / 2) = cos 90 = 0.. so rotation = 0
+similar to : ''transform.eulerAngles = new Vector3(0,0,0);''
+
+transform.localRotation = Quaternion.Euler(xAxis, yAxis, zAxis);
+
+4. Local Rotation and Quaternion
+transform.localRotation = Quaternion.Euler(0, 30, 0); IS SAME AS: transform.localRotation = Quaternion.Euler(Vector3.up * 30);
+//where 30 is the angle. 
+This is : Set your local rotation to this exact orientation (0, 30 degree, 0) (relative to your parent). -- means inside ur parent.
+
+----------------------------------------------------------------------------------------------------
+
+GET COMPONENT
+-----------------------------------------
+ComponentNm var = GetComponent<CompName>();
+ComponentNm CompVar = var.compNm; // to get component of an obj
+
+TO FIND OBJS BY TYPE
+-----------------------
+var = FindObjectByType<goorbuttonorwhatever>(FindObjectsInactive.ExcludeorInclude, FindObjectsSortMode.None)
+
+var = FindAnyObjectByType<script>(FindObjectsSortMode.mode).Length()
+
+TO FIND OBJS BY TAG
+-------------------
+GameObject.FindGameObjectWithTag("Enemy"); - Finds all go of tag Enemy
+
+TO GET AND ACCESS CHILD COMPONENT
+--------------------------------------
+// Transform
+Transform childTransform = transform.GetChild(0);
+Transform lastChildTransform = transform.GetChild(transform.childCount - 1);
+
+// GameObject
+GameObject childObject = transform.GetChild(0).gameObject;
+----------------------------------------------------------------------------------------------------
+
+[SerializeField]: makes private variable access in inspector
+
+static: makes the variable global-like; they belong to the class not the obj
+const: constant var that you cant change or update later
+readonly: only changeable while declaration or using constructer
+
+| Keyword    | Changeable?             | When assigned?             | Needs compile-time value? | Static? |
+| ---------- | ----------------------- | -------------------------- | ------------------------- | ------- |
+| `static`   | YES                     | anytime                    | no                        | yes     |
+| `const`    | NO                      | only at declaration        | yes                       | yes     |
+| `readonly` | NO (after construction) | declaration or constructor | no                        | no      | ~table from chatgpt
+
+-------------
+SUBSTRING
+anyTextorString.Substring(4, 3); - 4th indexed letter of anyTextorString to 3 letter. if Magazine - accessed letters are: zin
+
+----------------------------------------------------------------------------------------------------
+
+AI's you can use to learn and create: UnityMuse, ChatGPT, Gemini, Claude, Lovable and many more
+
+----------------------------------------------------------------------------------------------------
+
+<a href="https://sites.google.com/view/11201445v/home" target="_blank">support me</a>
+
+
+List
+----
+----
+List - class List<datatype> listVar;
+
+listVar.Add(addVar); //adds at the end
+listVar.Insert(index, addVar); //adds at that index
+
+listVar.Remove(delVar); // remove the item with name and auto shift
+listVar.RemoveAt(index); //removes the item with index and auto shift
+
+listVarA.AddRange(listVarB); // to add everything in one list to another
+
+
+BASIC FUNCTIONS()
+-----------------
+-----------------
+void Awake() - when the object wake up - before start()
+Void Start() - at the start of the game
+
+void FixedUpdate() - before Update() or per second - for physics and movements	
+Void Update() - per frame - every one frame per sec
+Void LateUpdate() - per frame but after Update()
+
+private void OTriggerEnter(Collider other) - isTrigger ON : only detection, no physical collision
+
+private void OnCollisionEnter(Collision collision) 
+
+private void OnMouseDown()
+
+Vector2 delta = Mouse.current.delta.ReadValue()
+-------------------------------
+for fps mouse movements: 
+delta.x → mouse movement left/right
+delta.y → mouse movement up/down
+
+IENUMERATOR / TIMER
+-------------------
+fn calling - StartCouroutine(fnName());
+fn declaration -
+IEnumerator fnName()
+{
+	fn stuffs:
+	1. yield return new WaitForSeconds(n); - waits for n seconds 
+}
+
+To exit application
+-------------------
+Application.Quit();
+
+OTHER INFOS
+-----------
+Random.Range does not include the maximum value for integers, but does include the maximum value for floats.
+
+
+
+Phy
+---
+---
+PHYSICS AND RIGID BODY
+---------------------------
+
+DIRECTION: Vector3 direction = ending position - starting position
+Random.Value; returns a random float value between 0 and 1
+
+FORCE
+-----
+RigidBodyObj.AddForce(direction * force, ForceMode.forceMode);
+-> playerRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse)
+
+
+| ForceMode        | Instant?  | Ignores Mass? | Common Use             |
+-------------------------------------------------------------------------
+| `Force`          | ❌ No     | ❌ No        | Smooth movement        |
+| `Acceleration`   | ❌ No     | ✅ Yes       | Uniform acceleration   |
+| `Impulse`        | ✅ Yes    | ❌ No        | Explosions, hits       |
+| `VelocityChange` | ✅ Yes    | ✅ Yes       | Arcade-style knockback | ...table taken from chatgpt...
+
+
+ROTATIONAL FORCE / TORQUE
+-------------------------
+RigidBodyObj.AddTorque(x, y, z, ForceMode.forceMode);
+-> playerRB.AddForce(5, 5, 5, ForceMode.Impulse)
+where the 5s or x, y and z are the torque applied to x, y, and z axis
+
+Linear and Angular Velocity
+---------------------------
+-> playerRb.linearVelocity = Vector3.zero; 
+-> playerRb.angularVelocity = Vector3.zero; //no velocity
+
+
+ACCESSING MAGNITUDE & DIRECTION - .magnitude & .normalized
+-----------------------------------------------------------
+Vector3 lookDirection = (player.transform.position - transform.position).normalized; //only gives the direction
+
+Vector3 lookDirection = (player.transform.position - transform.position).magnitude; //only gives the magnitude
+
+
+DEFINING VECTORS IN 3D SPACE
+----------------------------
+Vector3.forward - getting direction of gameObject
+otherGameObj.transform.forward - same as Vector3.forward but diff gameObj attached to the script
+
+APPL: To get the pt of obj2 10 units away from an obj1 to the direction where obj1 is looking :-
+obj2Pos = obj1.transform.position + obj1.transform.forward * 10f;
+
+--------------------------------------------------------------------------------------------------------------------
+
+DAMPING TIMING
+--------------
+| Damping value | Time to halve velocity (approx.) |
+| ------------- | -------------------------------- |
+| **0.1**       | ~6.9 seconds                     |
+  0.2			3.47 s
+| **0.3**       | ~2.3 seconds                     |
+| **0.5**       | ~1.4 seconds                     |
+| **1.0**       | ~0.7 seconds                     |
+| **2.0**       | ~0.35 seconds                    |
+| **5.0**       | ~0.14 seconds                    | ...table take from chatgpt...
+
+
+CONSTRAINTS
+-----------
+Rb.constraints = RigidbodyConstraints.FreezeAll;
+Rb.constraints = RigidbodyConstraints.None;   
+
+
+
+RAYCASTING (for interactions)
+----------------------------------------
+Create ray:
+Ray rayVar = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+//ray from center of the screen where player camera is:
+(0,1) ─────────────── (1,1)
+  │                     │
+  │        (0.5,0.5)    │
+  │           +         │
+  │                     │
+(0,0) ─────────────── (1,0)
+[take from chatgpt]
+
+
+if(Physics.Raycast(rayVar, out RaycastHit hit, range)) { ... }
+hit: contains information on what the ray is hitting. it has a collider
+range: how far can the ray hit
+
+LAYER MASK
+----------
+int layerMaskVar = LayerMask.GetMask("..."); 
+physics raycast returns true if hits ...
+
+int layerMaskVar = ~LayerMask.GetMask("..."); 
+physics raycast returns true if it hits anything other than ...
+or ... is ignored
+
+Physics.Raycast(r, out RaycastHit hit, 0.5f, layerMaskVar)
+
+
+
+
+ANIMATIONS
+----------
+----------
+Animator animVar; - assign/getComp
+ParticleSystem particleVar; - assign/getComp
+
+animVar.SetTrigger("name");
+animVar.SetBool("name");
+
+animVar.Play()
+animVar.Stop()
+
+
+SOUNDS
+------
+AudioClip audioClipVar; - assign (rec) /getcomp
+
+AudioSource audioSrcVar; //getcomp (rec) / assign
+
+AudioSrcVar.playOneShot(audioClipVar); - to play at the start and never plays again
+AudioSrcVar.Play(audioClipVar) - play forever
+AudioSrcVar.loop = true- loops, Boolean
+
+-> To attach audio clip to audio source
+audioSourceVar.clip = audioClipVar
+
+-----------------------------------------------------------------------
+note: timescale is independent to audio - make sure its not in update
+-----------------------------------------------------------------------
+
+->To change speed of audio source or audio clip by changing the pitch
+//only if you want to lower the audio while lowering the timescale
+    void DoSloMo()
+    {
+        Time.timeScale = sloMoSpeed;
+        Time.fixedDeltaTime = Time.timeScale * 0.02f;
+
+        planeAudioSource.Stop(); //stop current audio source
+        planeAudioSource.clip = slowmoAudio; //store clip
+        planeAudioSource.pitch = Mathf.Clamp(Time.timeScale, 0.1f, 2f);
+        planeAudioSource.Play();
+    }
+    
+    void StopSloMo()
+    {
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f;
+        
+        planeAudioSource.Stop();
+        planeAudioSource.clip = null;
+        planeAudioSource.pitch = 1f;
+    }
+
+
+UI
+--
+--
+
+TMP Scale changing fix 
+----------------------
+----------------------
+1. select your Canvas in the Hierarchy.
+2. in Canvas Scaler component:
+	3. set UI Scale Mode → Scale With Screen Size
+	4. set Reference Resolution → current res (1920 x 1080)
+	5. set Screen Match Mode → Match Width Or Height
+	6. the Match slider (0 = width-based, 1 = height-based, 0.5 = balanced) - so set balanced
+
+TEXT
+----
+public TextMeshProUGUI var;
+var.text = <text>
+
+SUBSTRING
+---------
+textVar.text.Substring(startIndex); 
+//will only take chars from startIndex to end
+
+textVar.text.Substring(firstIndex, howManyLettersMore);
+//will only take char from first index to last index text
+
+BUTTON
+------
+Component: Button
+button.onClick.AddListener(fn);
+
+void fn()
+{	
+... what happens when clicked that button ...
+}
+
+LOADING SCENE:
+SceneManager.LoadScene(SceneNm); - delete current scene and add another scene
+SceneManager.LoadScene("Game", LoadSceneMode.Additive); - adds another scene
+
+TO RESTART THE ACTIVE SCENE:
+SceneManager.GetActiveScene().name
+
+TOGGLE
+------
+toogleVar.onValueChanged.AddListener(fn);
+void fn(bool isOn)
+{
+    if (isOn)
+    {
+        Debug.Log("Checkbox is checked ✅");
+    }
+    else
+    {
+        Debug.Log("Checkbox is unchecked ❌");
+    }
+}
+
+OR
+bool boolVar = toggleVar.isOn; //bool var is true when toggleVar isOn is checked
+
+SCROLLING
+---------
+IN INSPECTOR:
+Vertical Size Layout - shifts when new elemnts or items are added
+Content size filter - parent objects size inceases when new things are added to it
+
+SETTINGS
+--------
+Skybox/background material:
+RenderSettings.skybox = newSkybox;
+
+To exit application:
+Application.Quit();
+
+
+Material Changing:
+oldMaterial = GetComponent<Renderer>().material;
+GetComponent<Renderer>().material = newMaterial;
+
+
+RECT TRANSFORM
+--------------
+RectTransform rect = var.rectTransform; //another method of getting component
+
+TO ACCESS POSITIONG - WE USE:
+ rect.anchoredPosition = new Vector3(...)
+
+TO ACCESS ANCHOR AND CHANGE EM - WE USE:
+rect.anchorMin = (0, 1)
+rect.anchorMax = (0, 1) //where rect is the rect transform component
+
+Position        | anchorMin     | anchorMax     | Notes
+----------------+---------------+---------------+-----------------------------
+Top-Left        | (0, 1)        | (0, 1)        | Offset downward (Y negative)
+Top-Middle      | (0.5, 1)      | (0.5, 1)      | X centered, offset downward
+Top-Right       | (1, 1)        | (1, 1)        | Offset left (X negative)
+
+Middle-Left     | (0, 0.5)      | (0, 0.5)      | Offset up/down via Y
+Middle-Center   | (0.5, 0.5)    | (0.5, 0.5)    | Center of screen
+Middle-Right    | (1, 0.5)      | (1, 0.5)      | Offset left via X
+
+Bottom-Left     | (0, 0)        | (0, 0)        | Offset upward (Y positive)
+Bottom-Middle   | (0.5, 0)      | (0.5, 0)      | X centered, offset upward
+Bottom-Right    | (1, 0)        | (1, 0)        | Offset left/up via X/Y
+
+		 (l/r, t/d)       (l/r , t/d)
+... table taken from chatgpt ...
+
+rect.anchoredPosition = new Vector2(203, -183); - position - x and y on that anchor
+
+float var = rectVar.rect.width; - gets rect width
+
+---------------------------------------------------------------------------------------------
+
+CLICK N DRAG STUFFS:
+--------------------
+-> EventSystem.current.currentSelectedGameobject - the UI Gameobject when it gets clicked. 
+-> CLICK N DRAG IN CANVAS
+-------------------------
+OTHER PARENT CLASSES THAT CAN BE USED FOR CLICK N DRAG FEATURE:
+IBeginDragHandler            fn: OnBeginDrag()
+IDragHandler                 fn: OnDrag()
+IEndDragHandler              fn: OnEndDrag
+
+PointerEventData eventData:
+eventData.position       : Current mouse / touch position (screen space)
+eventData.delta          : Movement since last frame
+eventData.pressPosition  : Where the drag started
+eventData.pointerId      : Mouse or finger ID
+eventData.button         : Left / Right / Middle mouse button
+eventData.dragging       : Is dragging happening?
+
+Eg Code [Generated using AI]:
+public class Drag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+{
+    public RectTransform limitCircle; // The circle UI you want to stay inside
+    private RectTransform spoonRect;
+
+    void Start()
+    {
+        spoonRect = GetComponent<RectTransform>();
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        // Optional: play sound or animation
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        // Move spoon to mouse
+        spoonRect.position = eventData.position;
+
+        // Clamp spoon inside the circle
+        KeepInsideCircle();
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        // Optional
+    }
+
+    void KeepInsideCircle()
+    {
+        Vector2 center = limitCircle.position;
+        float radius = limitCircle.rect.width * 0.5f;
+
+        Vector2 direction = spoonRect.position - center;
+
+        if (direction.magnitude > radius)
+        {
+            spoonRect.position = center + direction.normalized * radius;
+        }
+    }
+}
+
+
+IPointerHandler in eventdata
+----------------------------
+using UnityEngine.EventSystems;
+
+public class UIHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+{
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        UIHoverTracker.Instance.SetCurrent(gameObject);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        UIHoverTracker.Instance.Clear(gameObject);
+    }
+}
+
+---------------------------------------------------------------------------------
+
+
+LERP AND SLERP
+---------------
+transform.position = Vector3.Lerp(startPos|Vector3|, endPos|Vector3|, progress|Float|);
+//transform is at the progress place between startPos and endPos
+
+transform.rotation = Quaternion.Slerp(startGOTransform.rotation, endGOTransform.rotation, progress);
+//transform is having rotation between startGO and endGO rotation - progress part
+
+note: progress is between 0 and 1, where 0 = 0%, 1 = 100%
+
+-----------------------------------------------------------------
+SCENE MANAGEMENT - UnityEngine.SceneManagement
+----------------------------------------------
+----------------------------------------------
+SceneManager.LoadScene(sceneName);
+-> To get the active sceneName (useful when restart)
+   - SceneManager.GetActiveScene().name
+   - SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+
+TIME SCALE (SLOW MOTION)
+------------
+------------
+Time scale = 1 : normal speed
+Time scale = 0.5 : half speed
+
+https://www.youtube.com/watch?v=0VGosgaoTsw - brackeys tutorial
+
+Time.timeScale
+Time.fixedDeltaTime
+Time.unscaledDeltaTime
+
+Time.deltaTime
+
+Time.timeScale += (1/ slowDownLength) * Time.unscaledDeltaTime;
+Time.timeScale = Mathf.Clamp(Time.timeScale, 0, 1);
+
+
+DOT PRODUCT AND APPLICATOIN
+---------------------------
+---------------------------
+Vector3.Dot(a, b) means
+a.x * b.x + a.y * b.y + a.z * b.z
+
+
+COMPARISON REAL LIFE APPL:-
+
+Vector3 toTarget = realPath.transform.position - plane.transform.position;
+
+if (Vector3.Dot(plane.transform.forward, toTarget) < 0)
+{
+    // The realPath is behind the plane (plane has passed it)
+}
+else
+{
+    // The realPath is in front of the plane
+}
+
+EXPL:
+
+- Vector3 toTarget = realPath.transform.position - plane.transform.position;
+> has plane------>realPath [distance and direction]
+
+-Vector3.Dot(plane.transform.forward, toTarget)
+plane.transform.forward > has plane's forward direction
+
+Therefore if,
+> Vector3.Dot(plane.transform.forward, toTarget) > 0 
+Then: both are facing same direction - meaning realPath is in front of plane
+
+> Vector3.Dot(plane.transform.forward, toTarget) == 0
+Then: both are at the same place because vectors are perpendicular
+
+> Vector3.Dot(plane.transform.forward, toTarget) < 0
+Then: realPath is behind the plane because realPath's direction is towards the plane and toTargets direction is towards the realPath
+
+
+CONVERSION
+-----------
+-----------
+
+To convert anything to string
+
+anyVar.ToString();
+floatVar.ToString("F2"); //if float and only want 2 numbers after decimal
+
+
+To convert string to integer
+
+int.Parse(string)
+int.TryParse(string, out int result)   // safe
+Convert.ToInt32(string)               // handles null
+
+
+To convert string to float
+
+float.Parse(string)
+float.TryParse(string, out float result)   // safe
+Convert.ToSingle(string)
+
+
+To convert string to double
+
+double.Parse(string)
+double.TryParse(string, out double result) // safe
+Convert.ToDouble(string)
+
+
+To convert int to float/double
+
+float f = (float)intValue
+double d = (double)intValue
+
+
+To convert float/double to int
+
+int i = (int)floatValue           // truncates
+int i2 = Convert.ToInt32(floatValue) // rounds
+
+
+To convert string to bool
+
+bool.Parse(string)
+bool.TryParse(string, out bool result)  // safe
+
+
+
+
+
+COLORS
+------
+---------
+material.SetColor("_BaseColor", new color); //to change color of any material
+
+ENVIRONMENT
+-----------
+-----------
+-> To make your game environment white
+RenderSettings.skybox = null;
+Camera.main.clearFlags = CameraClearFlags.SolidColor;
+Camera.main.backgroundColor = Color.white;
+
+-> To make your game environment black
+RenderSettings.skybox = null;
+Camera.main.clearFlags = CameraClearFlags.SolidColor;
+Camera.main.backgroundColor = Color.black;
+
+-> To make your game environment a particular material
+RenderSettings.skybox = materialVariable;
+Camera.main.clearFlags = CameraClearFlags.Skybox;
+
+DynamicGI.UpdateEnvironment(); //unity may takes time to update its environment. this function will make it quicker ... make sure to put it in after you make any changes to your game environment
+
+
+
+MATHS
+-----
+-----
+Vector2.ClampMagnitude(vector, radius) - if vector.magnitude<=radius - returns same and if not, shortens it to the radius
+
+MATHF CLAMP
+-----------
+->Mathf.Clamp syntax
+Mathf.Clamp(value, min, max);
+where, 
+If value < min → returns min
+If value > max → returns max
+
+
+TILTING
+-------
+Accelerometer: -> with respect to phones gravity
+
+Accelerometer.current -> current available accelerometer
+
+Check if or add accelerometer in start:
+binding: <Accelerometer>/acceleration
+if (Accelerometer.current != null)
+   InputSystem.EnableDevice(Accelerometer.current);
+
+Update:
+if (Accelerometer.current != null)
+{
+      Vector3 tilt = Accelerometer.current.acceleration.ReadValue();
+                
+      xPressed = tilt.x * sensitivityFloatVar;
+      yPressed = tilt.y * sensitivityFloatVar;
+                
+      xPressed = Mathf.Clamp(horIn, -1f, 1f);
+      yPressed = Mathf.Clamp(verIn, -1f, 1f);
+}
+
+GyroScope: -> how fast your device is rotating
+binding: <Gyroscope>/angularVelocity
+Start:
+if (UnityEngine.InputSystem.Gyroscope.current != null)
+    InputSystem.EnableDevice(UnityEngine.InputSystem.Gyroscope.current);
+
+Update:
+if (Gyroscope.current != null)
+{
+    Vector3 gyro = Gyroscope.current.angularVelocity.ReadValue();
+
+    xLook = gyro.y * sensitivityFloatVar; // horizontal look
+    yLook = gyro.x * sensitivityFloatVar; // vertical look
+
+    xLook = Mathf.Clamp(xLook, -1f, 1f);
+    yLook = Mathf.Clamp(yLook, -1f, 1f);
+}
+
+
+
+STORING
+-------
+PlayerPrefs:
+
+int var = PlayerPrefs.GetInt("valueVar", defaultValue);
+PlayerPrefs.SetInt("valueVar", 1);
+PlayerPrefs.Save();
+
+JSON:
+Create Class of Variables:
+----
+   [System.Serializable]
+    public class GameData
+    {
+        public float highScore;
+    }
+
+GameData data = new GameData();
+data.highScore = ...;
+data.playerName = ...;
+
+
+File.WriteAllText(SavePath, json); to delete everything in Savepath and write json to SavePath
+
+string json = File.ReadAllText(SavePath); to read everything from SavePath and load it to json
+
+
+
+string json = JsonUtility.ToJson(data, true); take everything from class variable GameData to json
+
+GameData data = JsonUtility.FromJson<GameData>(json); take everything from json to a class variable GameData
+
+
+
+
+
+DEVICE DETECTION - Device Type, Screen Orientation, Resolution
+-------------------------------------------------------------
+Eg for detecting mobile: SystemInfo.deviceType == DeviceType.Handheld
+
+Resolution:
+Syntax: Screen.SetResolution(width, height, bool fullScreen);
+Screen.SetResolution(width, height, false);
+
+Screen.orientation = ScreenOrientation.Portrait;
+Screen.orientation = ScreenOrientation.LandscapeLeft;
+
+AutoRotate:
+    Screen.orientation = ScreenOrientation.AutoRotation;
+
+    Screen.autorotateToPortrait = true;
+    Screen.autorotateToPortraitUpsideDown = true;
+    Screen.autorotateToLandscapeLeft = true;
+    Screen.autorotateToLandscapeRight = true;
+
+
+
+
+
+
+INPUT
+-------
+InputManager (older?)
+---------------------
+In Start:
+horIn = Input.GetAxis("Horizontal");
+verIn = Input.GetAxis("Vertical");
+//where horIn and verIn is float
+
+In Update:
+//Move
+transform.Translate(Vector3.<direction> * speed * Time.deltaTime);
+
+//Rotate
+transform.Rotate(Vector3.<direction>, <speed> * Time.deltaTime * horIn); 
+
+//Press
+Input.GetKey(KeyCode.Space)
+Input.GetKeyDown(KeyCode.Space)
+Input.GetKeyUp(KeyCode.Space)
+
+----------------------------------------------------------------------------------------------
+
+Input System: Manual & Player Input
+-----------------------------------
+Manual:
+using UnityEngine.InputSystem;
+
+define: InputAction actionVar;
+InputAction boostAction;
+InputAction moveAction;
+
+Start: actionVar = InputSystem.actions.FindAction("actionMap/action");
+
+moveAction = InputSystem.actions.FindAction("Move");
+jumpAction = InputSystem.actions.FindAction("Jump");
+
+InputSystem.actions.Enable(); //enable action
+
+In Update:
+Action type: Value
+-> Vector2:
+        Vector2 moveValue = actionVar.ReadValue<Vector2>();
+        //Movement Code
+
+Action type: Button
+-> Get key //hold
+if (actionVar.IsPressed())
+{
+    ActionFn();
+}
+
+-> Get Key Down //press down
+if (actionVar.WasPressedThisFrame())
+{
+    ActionFn();
+}
+
+-> Get Key Up
+if (actionVar.WasReleasedThisFrame())
+{
+    ActionFn();
+}
+
+Action type: Pass Through
+->
+
+
+Movement Code:
+float horizontal = moveValue.x; // left(-1) or right(+1) key
+float vertical = moveValue.y;   // up(1) or down(-1) key
+
+Movement:
+transform.Translate(Vector3.<direction> * vertical * speed * Time.deltaTime);
+
+Rotation:
+transform.Rotate(Vector3.<direction> , horizontal * rotationSpeed * Time.deltaTime);
+------------------------------------
+diff:
+> Manual: "Check input every frame"
+> Player Input: "React when input happens"
+
+Manual way = checking your phone every second for messages
+Player Input = getting a notification when a message arrives
+--------------------------------------
+Player Input:
+-------------
+Add Player Input component
+Assign action var on Actions (alr assigned on default)
+
+in script:
+void OnActionNm()
+{ ... }
+
+
+
+UI
+--
+Unity already has a built-in UI navigation system:
+
+Add an EventSystem.
+Add Input System UI Input Module to it.
+Assign your UI actions (Navigate, Submit, Cancel, Point, Click, etc.).
+Make sure your Buttons, Toggles, Sliders, etc. are Selectable.
+
+Then Unity automatically does:
+
+Navigate → move selection between UI elements
+Submit → click/activate selected button
+Cancel → back/cancel events
+
+but ... 
+it selects when u navigate and press when u function em
+
+therefore, selected color = highlighted color
+
+header: using UnityEngine.EventSystems;
+
+TO select using script:
+EventSystem.current.SetSelectedGameObject(buttonVar.gameObject);
+
+To get what is selected currently using script:
+EventSystem.current.currentSelectedGameObject;
+
+store that to variable:
+GameObject selected = EventSystem.current.currentSelectedGameObject;
+
+
+-----------------------------------------------------------
+Mousemovement:
+Vector2 mouseDelta = Mouse.current.delta.ReadValue();
+        if (mouseDelta != Vector2.zero)
+        {
+            Debug.Log("Mouse moved");
+        }
+
+
+
+
+TO CHECK IF GO IS ACTIVE
+------------------------
+go.activeSelf : checks if go is active (even if parent is not)
+go.isActiveAndEnabled : checks if go is active only if its all parents are
+
